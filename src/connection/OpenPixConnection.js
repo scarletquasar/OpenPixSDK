@@ -8,7 +8,8 @@ class OpenPixConnection {
         this._authorization = newAuth : {};
 
         this._headers = {
-            'Authorization': this._authorization
+            'Authorization': this._authorization,
+            'Cache-Control': 'no-cache'
         };
     }
 
