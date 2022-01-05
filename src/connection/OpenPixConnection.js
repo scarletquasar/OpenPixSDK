@@ -1,7 +1,9 @@
 class OpenPixConnection {
-    constructor(authorization) {
+    constructor(authorization, type = "production") {
         setAuthorization(authorization); 
     }
+
+    _cache = {};
 
     setAuthorization = (newAuth) => {
         typeof newAuth === 'string' ? 
@@ -13,5 +15,5 @@ class OpenPixConnection {
         };
     }
 
-    getCharge = () => {};
+    getCharge = (id) => {};
 }
