@@ -1,0 +1,14 @@
+{
+  "name": "openpixsdk",
+  "version": "1.0.0",
+  "description": "Develop solutions quickly with an unnoficial Open Pix SDK",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}
