@@ -37,3 +37,5 @@ class OpenPixConnection {
         return this._cache[chargeId];
     };
 }
+
+export { OpenPixConnection }
