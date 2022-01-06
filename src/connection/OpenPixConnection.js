@@ -29,12 +29,12 @@ class OpenPixConnection {
             });
     
             result instanceof Object ?
-            this._cache = {...this._cache, ...result} : {};
+            this._cache[chargeId] = result : {};
 
-            if(chargeId) return result[chargeId];
-            return result;
+            return result.data;
         }
-        return this._cache[chargeId];
+        console.log("Proc Cache")
+        return this._cache[chargeId].data;
     };
 }
 

@@ -5,7 +5,7 @@ const sources = {
     },
     "tests": {
         "baseUrl": "https://jsonplaceholder.typicode.com",
-        "charge": "/todos/1"
+        "charge": "/todos/"
     }
 };
 
