@@ -2,13 +2,13 @@ import { getChargeAsync } from "../utils/chargeRestCaller.js";
 
 class OpenPixConnection {
     constructor(authorization, type = "production") {
-        setupConnection(authorization); 
+        this.setupConnection(authorization, type); 
     }
 
     _type = null;
     _cache = {};
 
-    setupConnection = (newAuth) => {
+    setupConnection = (newAuth, newType) => {
         typeof newAuth === 'string' ? 
         this._authorization = newAuth : {};
 
@@ -17,7 +17,7 @@ class OpenPixConnection {
             'Cache-Control': 'no-cache'
         };
 
-        this._type = type;
+        this._type = newType;
     }
 
     getCharge = async (chargeId) => {
@@ -28,7 +28,7 @@ class OpenPixConnection {
                 callHeaders: this._headers
             });
     
-            result instanceof 'Object' ?
+            result instanceof Object ?
             this._cache = {...this._cache, ...result} : {};
 
             if(chargeId) return result[chargeId];

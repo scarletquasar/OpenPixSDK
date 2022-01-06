@@ -1,10 +1,4 @@
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.sources = void 0;
-var sources = {
+const sources = {
   "production": {
     "baseUrl": "https://api.openpix.com.br",
     "charge": "/api/openpix/v1/charge"
@@ -14,4 +8,4 @@ var sources = {
     "charge": "/todos/1"
   }
 };
-exports.sources = sources;
+export { sources };

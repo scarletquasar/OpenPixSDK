@@ -9,16 +9,16 @@ const getChargeAsync = async (request) => {
     result[request.id] = null;
 
     if(request.id) {
-        result = await axios.get(baseUrl + route + `/${request.id}`, {
+        result[request.id] = await axios.get(baseUrl + route + `/${request.id}`, {
             headers: request.callHeaders
         });
-        return result;
+        return result.data;
     }
     
-    result[request.id] = await axios.get(baseUrl + route, {
+    result = await axios.get(baseUrl + route, {
         headers: request.callHeaders
     });
-    return result;
+    return result.data;
 };
 
 export { getChargeAsync }
