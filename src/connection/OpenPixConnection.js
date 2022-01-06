@@ -31,7 +31,8 @@ class OpenPixConnection {
             result instanceof 'Object' ?
             this._cache = {...this._cache, ...result} : {};
 
-            return result[chargeId];
+            if(chargeId) return result[chargeId];
+            return result;
         }
         return this._cache[chargeId];
     };
