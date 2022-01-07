@@ -1,3 +1,4 @@
+import { PixCharge } from "../models/pix/PixCharge.js";
 import { getChargeAsync } from "../utils/chargeRestCaller.js";
 
 class OpenPixConnection {
@@ -26,7 +27,7 @@ class OpenPixConnection {
       return result.data;
     }
 
-    return this._cache[chargeId].data;
+    return new PixCharge(this._cache[chargeId].data);
   };
 }
 

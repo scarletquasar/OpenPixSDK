@@ -1,6 +1,6 @@
-import { ImplicitObject } from "./extensions/ImplicitObject.js";
+import { ConvertibleObject } from "./extensions/ConvertibleObject.js";
 
-class PixCharge extends ImplicitObject {
+class PixCharge extends ConvertibleObject {
   status = null;
   customer = null;
   value = null;
