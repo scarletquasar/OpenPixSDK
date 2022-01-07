@@ -8,8 +8,8 @@ const sources = {
         "charge": "/todos/"
     },
     "mockTests": {
-        "baseUrl": "/src/mocks",
-        "charge": "chargeMock.json"
+        "baseUrl": "https://raw.githubusercontent.com/EternalQuasar0206/OpenPixSDK/main/src/mocks/",
+        "charge": ""
     }
 };
 

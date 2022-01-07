@@ -24,11 +24,11 @@ class OpenPixConnection {
         callType: this._type,
         callHeaders: this._headers
       });
-      result instanceof Object ? this._cache[chargeId] = result : {};
-      return result.data;
+      result instanceof Object && chargeId ? this._cache[chargeId] = result.data : {};
+      return new PixCharge(result.data.charge);
     }
 
-    return new PixCharge(this._cache[chargeId].data);
+    return new PixCharge(this._cache[chargeId].data.charge);
   };
 }
 

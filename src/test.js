@@ -3,8 +3,9 @@ import { ConnectionType } from "./models/enums/ConnectionType.js";
 
 var a = new OpenPixConnection("", ConnectionType.mockTests);
 async function test() {
-    var b = await a.getCharge();
+    var b = await a.getCharge("chargeMock.jsson");
     console.log(b);
+
 }
 
 test()

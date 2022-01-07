@@ -1,5 +1,6 @@
 import axios from "axios";
 import { sources } from "../sources/sources.js";
+import { genericErrors } from "../models/errors/genericErrors.js";
 
 const getChargeAsync = async (request) => {
     const baseUrl = sources[request.callType]["baseUrl"];
@@ -11,7 +12,11 @@ const getChargeAsync = async (request) => {
     if(request.id) {
         result = await axios.get(baseUrl + route + `/${request.id}`, {
             headers: request.callHeaders
-        });
+        })
+        .catch(e => {
+            console.error(e);
+            throw new Error(genericErrors.fetchError);
+        })
         return result;
     }
     
