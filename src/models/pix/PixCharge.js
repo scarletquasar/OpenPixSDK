@@ -1,4 +1,6 @@
-class PixCharge {
+import { ConvertibleObject } from "./extensions/ConvertibleObject.js";
+
+class PixCharge extends ConvertibleObject {
     status = null;
     customer = null;
     value = null;
@@ -14,9 +16,8 @@ class PixCharge {
     updatedAt = null;
 
     constructor(raw) {
-        Object.entries(raw).forEach(([key, value]) => {
-            this.hasOwnProperty(key) ? this[key] = value : {};
-        });
+        super();
+        super.generateFromRaw(raw);
     }
 }
 
