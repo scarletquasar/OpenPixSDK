@@ -36,16 +36,29 @@ const createChargeAsync = async (request) => {
     const params = getConnectionParams(request, "createCharge");
     let result = new PixCharge();
 
-    result = await axios.post(params.baseUrl + params.route, request.body,
-    {
-        headers: request.callHeaders
+    if(request.callType == "production" || request.callType == "tests") {
+        result = await axios.post(params.baseUrl + params.route, request.body,
+        {
+            headers: request.callHeaders
+        })
+        .catch(e => {
+            console.error(e);
+            throw new Error(genericErrors.fetchError);
+        });
+    
+        return result;
+    }
+
+    result = await axios.get(params.baseUrl + params.route, {
+            headers: request.callHeaders
     })
     .catch(e => {
         console.error(e);
         throw new Error(genericErrors.fetchError);
     });
-
+    
     return result;
+    
 }
 
 export { getChargeAsync, createChargeAsync }
