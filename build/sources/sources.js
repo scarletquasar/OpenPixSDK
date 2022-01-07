@@ -1,15 +1,18 @@
 const sources = {
   "production": {
     "baseUrl": "https://api.openpix.com.br",
-    "charge": "/api/openpix/v1/charge"
+    "charge": "/api/openpix/v1/charge",
+    "createCharge": ""
   },
   "tests": {
     "baseUrl": "https://jsonplaceholder.typicode.com",
-    "charge": "/todos/"
+    "charge": "/todos/",
+    "createCharge": ""
   },
   "mockTests": {
     "baseUrl": "https://raw.githubusercontent.com/EternalQuasar0206/OpenPixSDK/main/src/mocks/",
-    "charge": ""
+    "charge": "",
+    "createCharge": "createChargeMock.json"
   }
 };
 export { sources };

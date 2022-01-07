@@ -3,14 +3,14 @@ import { sources } from "../sources/sources.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
 
-const getConnectionParams = (request) => {
+const getConnectionParams = (request, routeName) => {
     const baseUrl = sources[request.callType]["baseUrl"];
-    const route = sources[request.callType]["charge"];
+    const route = sources[request.callType][routeName];
     return {baseUrl, route};
 }
 
 const getChargeAsync = async (request) => {
-    const params = getConnectionParams(request);
+    const params = getConnectionParams(request, "charge");
     let result = {};
 
     result[request.id] = null;
@@ -33,7 +33,7 @@ const getChargeAsync = async (request) => {
 };
 
 const createChargeAsync = async (request) => {
-    const params = getConnectionParams(request);
+    const params = getConnectionParams(request, "createCharge");
     let result = new PixCharge();
 
     result = await axios.post(params.baseUrl + params.route, request.body,

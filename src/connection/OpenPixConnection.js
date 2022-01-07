@@ -53,9 +53,7 @@ class OpenPixConnection {
             body: chargeBody
         });
 
-        if(result.data instanceof Object) {
-            return new PixCharge(result.data);
-        }
+        return new PixCharge(result.data);
     }
 }
 
