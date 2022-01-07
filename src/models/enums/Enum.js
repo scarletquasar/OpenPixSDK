@@ -1,11 +1,11 @@
-class StringEnum extends String {
+class Enum {
     constructor(values) {
         values.forEach((value, index) => {
             if(typeof value === 'string') {
-                this[value] = index;
+                this[value] = [index, value];
             }
         }); 
     }
 }
 
-export { StringEnum }
+export { Enum }

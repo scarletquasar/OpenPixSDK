@@ -1,4 +1,4 @@
-const genericMocks = {
+{
     "charge": {
         "status": "ACTIVE",
         "customer": {},
@@ -27,6 +27,4 @@ const genericMocks = {
         "createdAt": "2021-03-02T17:28:51.882Z",
         "updatedAt": "2021-03-02T17:28:51.882Z"
     }
-};
-
-export { genericMocks }
+}

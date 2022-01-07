@@ -6,6 +6,10 @@ const sources = {
     "tests": {
         "baseUrl": "https://jsonplaceholder.typicode.com",
         "charge": "/todos/"
+    },
+    "mockTests": {
+        "baseUrl": "/src/mocks",
+        "charge": "chargeMock.json"
     }
 };
 

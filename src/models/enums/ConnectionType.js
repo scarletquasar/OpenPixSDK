@@ -1,6 +1,6 @@
-import { StringEnum } from "./StringEnum.js";
+import { Enum } from "./Enum.js";
 
-const ConnectionType = new StringEnum([
+const ConnectionType = new Enum([
     "production",
     "tests",
     "mockTests"

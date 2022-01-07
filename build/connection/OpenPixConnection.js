@@ -1,8 +1,9 @@
 import { PixCharge } from "../models/pix/PixCharge.js";
+import { ConnectionType } from "../models/enums/ConnectionType.js";
 import { getChargeAsync } from "../utils/chargeRestCaller.js";
 
 class OpenPixConnection {
-  constructor(authorization, type = "production") {
+  constructor(authorization, type = ConnectionType.production) {
     this.setupConnection(authorization, type);
   }
 
@@ -14,7 +15,7 @@ class OpenPixConnection {
       'Authorization': this._authorization,
       'Cache-Control': 'no-cache'
     };
-    this._type = newType;
+    this._type = newType[1];
   };
   getCharge = async chargeId => {
     if (!this._cache[chargeId]) {
