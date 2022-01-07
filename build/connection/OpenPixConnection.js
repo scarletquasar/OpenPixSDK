@@ -26,7 +26,6 @@ class OpenPixConnection {
       return result.data;
     }
 
-    console.log("Proc Cache");
     return this._cache[chargeId].data;
   };
 }

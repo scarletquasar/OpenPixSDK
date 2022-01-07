@@ -13,13 +13,11 @@ class PixCharge {
     createdAt = null;
     updatedAt = null;
 
-    static new(raw) {
-        const res = new PixCharge();
-
+    constructor(raw) {
         Object.entries(raw).forEach(([key, value]) => {
-            res.hasOwnProperty(this[key]) ? res[key] = value : {};
+            this.hasOwnProperty(key) ? this[key] = value : {};
         });
-
-        return res;
     }
 }
+
+export { PixCharge }
