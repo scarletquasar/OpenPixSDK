@@ -1,4 +1,4 @@
-import { ConvertibleObject } from "./extensions/ConvertibleObject.js";
+import { ConvertibleObject } from "../extensions/ConvertibleObject.js";
 
 class PixCharge extends ConvertibleObject {
     status = null;
