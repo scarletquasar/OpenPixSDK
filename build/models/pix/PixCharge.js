@@ -15,7 +15,7 @@ class PixCharge extends ConvertibleObject {
   createdAt = null;
   updatedAt = null;
 
-  constructor(raw) {
+  constructor(raw = []) {
     super();
     super.generateFromRaw(raw);
   }

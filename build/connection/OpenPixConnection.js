@@ -1,6 +1,7 @@
 import { PixCharge } from "../models/pix/PixCharge.js";
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getChargeAsync } from "../utils/chargeRestCaller.js";
+import { getChargeAsync, createChargeAsync } from "../utils/chargeRestCaller.js";
+import { genericErrors } from "../models/errors/genericErrors.js";
 
 class OpenPixConnection {
   constructor(authorization, type = ConnectionType.production) {
@@ -24,11 +25,21 @@ class OpenPixConnection {
         callType: this._type,
         callHeaders: this._headers
       });
-      result instanceof Object && chargeId ? this._cache[chargeId] = result.data : {};
+      result.data instanceof Object && chargeId ? this._cache[chargeId] = result.data : {};
       return new PixCharge(result.data.charge);
     }
 
     return new PixCharge(this._cache[chargeId].data.charge);
+  };
+  createCharge = async chargeBody => {
+    if (!chargeBody.correlationID) throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+    if (!chargeBody.value) throw new Error(genericErrors.requiredFieldRequired + "value");
+    const result = await createChargeAsync({
+      callType: this._type,
+      callHeaders: this._headers,
+      body: chargeBody
+    });
+    return new PixCharge(result.data);
   };
 }
 
