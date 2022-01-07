@@ -5,7 +5,6 @@ var a = new OpenPixConnection("", ConnectionType.mockTests);
 async function test() {
     var b = await a.createCharge({correlationID: 1, value: 100});
     console.log(b);
-
 }
 
 test()

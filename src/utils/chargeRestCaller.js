@@ -58,7 +58,6 @@ const createChargeAsync = async (request) => {
     });
     
     return result;
-    
 }
 
 export { getChargeAsync, createChargeAsync }

@@ -36,7 +36,6 @@ const getChargeAsync = async request => {
 const createChargeAsync = async request => {
   const params = getConnectionParams(request, "createCharge");
   let result = new PixCharge();
-  console.log(request.callType);
 
   if (request.callType == "production" || request.callType == "tests") {
     result = await axios.post(params.baseUrl + params.route, request.body, {
