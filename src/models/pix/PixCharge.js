@@ -1,6 +1,8 @@
 import { ConvertibleObject } from "../extensions/ConvertibleObject.js";
 
 class PixCharge extends ConvertibleObject {
+    operationFailed = false;
+    error = null;
     status = null;
     customer = null;
     value = null;
