@@ -62,7 +62,7 @@ class OpenPixConnection {
             body: chargeBody
         });
 
-        return new PixCharge(result.data);
+        return new PixCharge(result.data.charge);
     }
 
     getRefund = async (refundId) => {
@@ -98,7 +98,7 @@ class OpenPixConnection {
             body: refundBody
         });
 
-        return new PixRefund(result.data);
+        return new PixRefund(result.data.refund);
     }
 }
 
