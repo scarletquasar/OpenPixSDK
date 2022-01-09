@@ -75,6 +75,7 @@ class OpenPixConnection {
         }
 
         return new PixRefund(this._cache.refunds[refundId].data.charge);
+        
     }
 }
 
