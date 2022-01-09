@@ -139,5 +139,6 @@ export {
     getChargeAsync, 
     createChargeAsync,
     getRefundAsync,
-    createRefundAsync
+    createRefundAsync,
+    getCustomerAsync
 }

@@ -1,8 +1,9 @@
-import { PixCharge } from "../models/pix/PixCharge.js";
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync } from "../utils/chargeRestCaller.js";
+import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
+import { PixCharge } from "../models/pix/PixCharge.js";
+import { PixCustomer } from "../models/pix/PixCustomer.js";
 
 class OpenPixConnection {
   constructor(authorization, type = ConnectionType.production) {
@@ -12,7 +13,8 @@ class OpenPixConnection {
   _type = null;
   _cache = {
     charges: {},
-    refunds: {}
+    refunds: {},
+    customers: {}
   };
   setupConnection = (newAuth, newType) => {
     typeof newAuth === 'string' ? this._authorization = newAuth : {};
@@ -43,7 +45,7 @@ class OpenPixConnection {
       callHeaders: this._headers,
       body: chargeBody
     });
-    return new PixCharge(result.data);
+    return new PixCharge(result.data.charge);
   };
   getRefund = async refundId => {
     if (!this._cache.refunds[refundId]) {
@@ -67,7 +69,20 @@ class OpenPixConnection {
       callHeaders: this._headers,
       body: refundBody
     });
-    return new PixRefund(result.data);
+    return new PixRefund(result.data.refund);
+  };
+  getCustomer = async customerId => {
+    if (!this._cache.customers[customerId]) {
+      const result = await getCustomerAsync({
+        id: customerId,
+        callType: this._type,
+        callHeaders: this._headers
+      });
+      result.data instanceof Object && customerId ? this._cache.customers[customerId] = result.data : {};
+      return new PixCustomer(result.data.customer);
+    }
+
+    return new PixCustomer(this._cache.customers[customerId].data.charge);
   };
 }
 

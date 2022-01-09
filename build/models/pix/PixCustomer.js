@@ -1,11 +1,11 @@
 import { ConvertibleObject } from "../extensions/ConvertibleObject.js";
 
-class PixRefund extends ConvertibleObject {
-  value = null;
+class PixCustomer extends ConvertibleObject {
+  name = null;
+  email = null;
+  phone = null;
+  taxID = null;
   correlationID = null;
-  refundId = null;
-  returnIdentification = null;
-  time = null;
 
   constructor(raw = []) {
     super();
@@ -14,4 +14,4 @@ class PixRefund extends ConvertibleObject {
 
 }
 
-export { PixRefund };
+export { PixCustomer };
