@@ -1,6 +1,11 @@
 import { PixCharge } from "../models/pix/PixCharge.js";
 import { ConnectionType } from "../models/enums/ConnectionType.js"
-import { getChargeAsync, createChargeAsync, getRefundAsync } from "../utils/chargeRestCaller.js";
+import { 
+    getChargeAsync, 
+    createChargeAsync, 
+    getRefundAsync,
+    createRefundAsync
+} from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 
@@ -87,7 +92,13 @@ class OpenPixConnection {
         if(!refundBody.correlationID)
             throw new Error(genericErrors.requiredFieldRequired + "correlationID");
 
-        
+        const result = await createRefundAsync({
+            callType: this._type,
+            callHeaders: this._headers,
+            body: refundBody
+        });
+
+        return new PixRefund(result.data);
     }
 }
 

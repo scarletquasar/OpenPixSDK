@@ -84,7 +84,7 @@ const getRefundAsync = async (request) => {
     return result;
 }
 
-const createRefundAsync = (request) => {
+const createRefundAsync = async (request) => {
     const params = getConnectionParams(request, "createRefund");
     let result = {};
 
