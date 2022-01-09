@@ -1,7 +1,8 @@
 import { PixCharge } from "../models/pix/PixCharge.js";
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getChargeAsync, createChargeAsync } from "../utils/chargeRestCaller.js";
+import { getChargeAsync, createChargeAsync, getRefundAsync } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
+import { PixRefund } from "../models/pix/PixRefund.js";
 
 class OpenPixConnection {
   constructor(authorization, type = ConnectionType.production) {
@@ -9,7 +10,10 @@ class OpenPixConnection {
   }
 
   _type = null;
-  _cache = {};
+  _cache = {
+    charges: {},
+    refunds: {}
+  };
   setupConnection = (newAuth, newType) => {
     typeof newAuth === 'string' ? this._authorization = newAuth : {};
     this._headers = {
@@ -19,17 +23,17 @@ class OpenPixConnection {
     this._type = newType[1];
   };
   getCharge = async chargeId => {
-    if (!this._cache[chargeId]) {
+    if (!this._cache.charges[chargeId]) {
       const result = await getChargeAsync({
         id: chargeId,
         callType: this._type,
         callHeaders: this._headers
       });
-      result.data instanceof Object && chargeId ? this._cache[chargeId] = result.data : {};
+      result.data instanceof Object && chargeId ? this._cache.charges[chargeId] = result.data : {};
       return new PixCharge(result.data.charge);
     }
 
-    return new PixCharge(this._cache[chargeId].data.charge);
+    return new PixCharge(this._cache.charges[chargeId].data.charge);
   };
   createCharge = async chargeBody => {
     if (!chargeBody.correlationID) throw new Error(genericErrors.requiredFieldRequired + "correlationID");
@@ -40,6 +44,19 @@ class OpenPixConnection {
       body: chargeBody
     });
     return new PixCharge(result.data);
+  };
+  getRefund = async refundId => {
+    if (!this._cache.refunds[refundId]) {
+      const result = await getRefundAsync({
+        id: refundId,
+        callType: this._type,
+        callHeaders: this._headers
+      });
+      result.data instanceof Object && refundId ? this._cache.refunds[refundId] = result.data : {};
+      return new PixRefund(result.data.refund);
+    }
+
+    return new PixRefund(this._cache.refunds[refundId].data.charge);
   };
 }
 

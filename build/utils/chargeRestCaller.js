@@ -2,6 +2,7 @@ import axios from "axios";
 import { sources } from "../sources/sources.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
+import { PixRefund } from "../models/pix/PixRefund.js";
 
 const getConnectionParams = (request, routeName) => {
   const baseUrl = sources[request.callType]["baseUrl"];
@@ -35,7 +36,7 @@ const getChargeAsync = async request => {
 
 const createChargeAsync = async request => {
   const params = getConnectionParams(request, "createCharge");
-  let result = new PixCharge();
+  let result = {};
 
   if (request.callType == "production" || request.callType == "tests") {
     result = await axios.post(params.baseUrl + params.route, request.body, {
@@ -56,4 +57,25 @@ const createChargeAsync = async request => {
   return result;
 };
 
-export { getChargeAsync, createChargeAsync };
+const getRefundAsync = async request => {
+  const params = getConnectionParams(request, "refund");
+  let result = {};
+  result[request.id] = null;
+
+  if (request.id) {
+    result = await axios.get(params.baseUrl + params.route + `/${request.id}`, {
+      headers: request.callHeaders
+    }).catch(e => {
+      console.error(e);
+      throw new Error(genericErrors.fetchError);
+    });
+    return result;
+  }
+
+  result = await axios.get(params.baseUrl + params.route, {
+    headers: request.callHeaders
+  });
+  return result;
+};
+
+export { getChargeAsync, createChargeAsync, getRefundAsync };
