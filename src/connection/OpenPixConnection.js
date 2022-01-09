@@ -75,6 +75,18 @@ class OpenPixConnection {
         }
 
         return new PixRefund(this._cache.refunds[refundId].data.charge);
+    }
+
+    createRefund = async (refundBody) => {
+        if(!refundBody.value)
+            throw new Error(genericErrors.requiredFieldRequired + "value");
+
+        if(!refundBody.transactionEndToEndId)
+            throw new Error(genericErrors.requiredFieldRequired + "transactionEndToEndId");    
+
+        if(!refundBody.correlationID)
+            throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+
         
     }
 }
