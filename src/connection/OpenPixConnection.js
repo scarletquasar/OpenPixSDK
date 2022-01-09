@@ -17,7 +17,8 @@ class OpenPixConnection {
     _type = null;
     _cache = {
         charges: {},
-        refunds: {}
+        refunds: {},
+        customers: {}
     };
 
     setupConnection = (newAuth, newType) => {
@@ -99,6 +100,10 @@ class OpenPixConnection {
         });
 
         return new PixRefund(result.data.refund);
+    }
+
+    getCustomer = (customerId) => {
+
     }
 }
 
