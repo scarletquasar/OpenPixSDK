@@ -1,7 +1,9 @@
 {
+    "refund": {
     "status": "IN_PROCESSING",
     "value": 100,
     "correlationID": "9134e286-6f71-427a-bf00-241681624586",
     "refundId": "9134e2866f71427abf00241681624586",
     "time": "2021-03-02T17:28:51.882Z"
+    }
 }

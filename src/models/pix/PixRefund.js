@@ -5,6 +5,7 @@ class PixRefund extends ConvertibleObject {
     correlationID = null;
     refundId = null;
     returnIdentification = null;
+    time = null;
 
     constructor(raw = []) {
         super();
