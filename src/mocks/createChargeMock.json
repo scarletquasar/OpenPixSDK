@@ -1,5 +1,4 @@
 {
-  "charge": {
     "correlationID": "9134e286-6f71-427a-bf00-241681624586",
     "value": 100,
     "comment": "good",
@@ -23,5 +22,4 @@
         "value": "302"
       }
     ]
-  }
 }
