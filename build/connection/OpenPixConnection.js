@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync } from "../utils/chargeRestCaller.js";
+import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -83,6 +83,15 @@ class OpenPixConnection {
     }
 
     return new PixCustomer(this._cache.customers[customerId].data.charge);
+  };
+  createCustomer = async customerBody => {
+    if (!customerBody.name) throw new Error(genericErrors.requiredFieldRequired + "name");
+    const result = await createCustomerAsync({
+      callType: this._type,
+      callHeaders: this._headers,
+      body: customerBody
+    });
+    return new PixCustomer(result.data.customer);
   };
 }
 
