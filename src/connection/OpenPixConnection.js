@@ -120,6 +120,10 @@ class OpenPixConnection {
 
         return new PixCustomer(this._cache.customers[customerId].data.charge);
     }
+
+    createCustomer = async (customerBody) => {
+        
+    }
 }
 
 export { OpenPixConnection }
