@@ -1,0 +1,11 @@
+{
+    "customer": {
+      "name": "Dan",
+      "email": "email0@entria.com.br",
+      "phone": "119912345670",
+      "taxID": {
+        "taxID": "31324227036",
+        "type": "BR:CPF"
+      }
+    }
+}

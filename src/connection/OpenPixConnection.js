@@ -4,7 +4,8 @@ import {
     createChargeAsync, 
     getRefundAsync,
     createRefundAsync,
-    getCustomerAsync
+    getCustomerAsync,
+    createCustomerAsync
 } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -122,7 +123,16 @@ class OpenPixConnection {
     }
 
     createCustomer = async (customerBody) => {
-        
+        if(!customerBody.name)
+            throw new Error(genericErrors.requiredFieldRequired + "name");
+
+        const result = await createCustomerAsync({
+            callType: this._type,
+            callHeaders: this._headers,
+            body: customerBody
+        });
+
+        return new PixCustomer(result.data.customer);
     }
 }
 
