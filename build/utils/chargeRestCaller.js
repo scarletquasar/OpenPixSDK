@@ -166,4 +166,27 @@ const getTransactionAsync = async request => {
   return result;
 };
 
-export { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync };
+const createPaymentAsync = async request => {
+  const params = getConnectionParams(request, "payment");
+  let result = {};
+
+  if (request.callType == "production" || request.callType == "tests") {
+    result = await axios.post(params.baseUrl + params.route, request.body, {
+      headers: request.callHeaders
+    }).catch(e => {
+      console.error(e);
+      throw new Error(genericErrors.fetchError);
+    });
+    return result;
+  }
+
+  result = await axios.get(params.baseUrl + params.route, {
+    headers: request.callHeaders
+  }).catch(e => {
+    console.error(e);
+    throw new Error(genericErrors.fetchError);
+  });
+  return result;
+};
+
+export { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync, createPaymentAsync };

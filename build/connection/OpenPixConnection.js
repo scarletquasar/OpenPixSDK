@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync } from "../utils/chargeRestCaller.js";
+import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync, createPaymentAsync } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -103,11 +103,22 @@ class OpenPixConnection {
         callHeaders: this._headers
       });
       result.data instanceof Object && transactionId ? this._cache.transactions[transactionId] = result.data : {};
-      console.log(result.data.transaction);
       return new PixTransaction(result.data.transaction);
     }
 
     return new PixTransaction(this._cache.transactions[customerId].data.transaction);
+  };
+  startPayment = async paymentBody => {
+    if (!paymentBody.correlationID) throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+    if (!paymentBody.pixKey) throw new Error(genericErrors.requiredFieldRequired + "pixKey");
+    if (!paymentBody.pixKeyType) throw new Error(genericErrors.requiredFieldRequired + "pixKeyType");
+    if (!paymentBody.value) throw new Error(genericErrors.requiredFieldRequired + "value");
+    const result = await createPaymentAsync({
+      callType: this._type,
+      callHeaders: this._headers,
+      body: paymentBody
+    });
+    return new PixPayment(result.data.payment);
   };
 }
 
