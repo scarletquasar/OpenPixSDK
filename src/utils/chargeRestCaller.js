@@ -163,11 +163,35 @@ const createCustomerAsync = async (request) => {
     return result;
 }
 
+const getTransactionAsync = async (request) => {
+    const params = getConnectionParams(request, "transaction");
+    let result = {};
+
+    result[request.id] = null;
+
+    if(request.id) {
+        result = await axios.get(params.baseUrl + params.route + `/${request.id}`, {
+            headers: request.callHeaders
+        })
+        .catch(e => {
+            console.error(e);
+            throw new Error(genericErrors.fetchError);
+        })
+        return result;
+    }
+    
+    result = await axios.get(params.baseUrl + params.route, {
+        headers: request.callHeaders
+    });
+    return result;
+}
+
 export { 
     getChargeAsync, 
     createChargeAsync,
     getRefundAsync,
     createRefundAsync,
     getCustomerAsync,
-    createCustomerAsync
+    createCustomerAsync,
+    getTransactionAsync
 }

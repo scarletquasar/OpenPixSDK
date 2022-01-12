@@ -27,7 +27,7 @@ const sources = {
         "createRefund": "createRefundMock.json",
         "customer": "customerMock.json",
         "createCustomer": "createCustomerMock.json",
-        "transaction": ""
+        "transaction": "transactionMock.json"
     }
 };
 
