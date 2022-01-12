@@ -180,7 +180,7 @@ class OpenPixConnection {
         return new PixPayment(result.data.payment);
     }
 
-    confirmPayment = (paymendCorrelationId) => {
+    confirmPayment = async (paymendCorrelationId) => {
         if(!paymentBody.correlationID)
             throw new Error(genericErrors.requiredFieldRequired + "correlationID");
 
@@ -191,6 +191,10 @@ class OpenPixConnection {
         });
 
         return new PixPayment(result.data.payment);
+    }
+
+    getPixQrCode = async () => {
+        
     }
 }
 
