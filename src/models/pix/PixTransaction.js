@@ -16,9 +16,9 @@ class PixTransaction extends ConvertibleObject {
     constructor(raw = []) {
         super();
         super.generateFromRaw(raw);
-        this.customer = new PixCustomer(this.customer);
-        this.payer = new PixCustomer(this.payer);
-        this.charge = new PixCharge(this.charge);
+        this.customer = new PixCustomer(this.customer ?? []);
+        this.payer = new PixCustomer(this.payer ?? []);
+        this.charge = new PixCharge(this.charge ?? []);
     }
 }
 

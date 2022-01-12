@@ -19,7 +19,7 @@ class PixCharge extends ConvertibleObject {
     constructor(raw = []) {
         super();
         super.generateFromRaw(raw);
-        this.customer = new PixCustomer(this.customer);
+        this.customer = new PixCustomer(this.customer ?? []);
     }
 }
 

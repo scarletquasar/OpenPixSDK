@@ -6,7 +6,8 @@ const sources = {
     "refund": "/api/openpix/v1/refund/",
     "createRefund": "/api/openpix/v1/refund/",
     "customer": "/api/openpix/v1/customer/",
-    "createCustomer": "/api/openpix/v1/customer/"
+    "createCustomer": "/api/openpix/v1/customer/",
+    "transaction": "/api/openpix/v1/transaction/"
   },
   "tests": {
     "baseUrl": "https://jsonplaceholder.typicode.com",
@@ -15,7 +16,8 @@ const sources = {
     "refund": "",
     "createRefund": "",
     "customer": "",
-    "createCustomer": ""
+    "createCustomer": "",
+    "transaction": ""
   },
   "mockTests": {
     "baseUrl": "https://raw.githubusercontent.com/EternalQuasar0206/OpenPixSDK/main/src/mocks/",
@@ -24,7 +26,8 @@ const sources = {
     "refund": "refundMock.json",
     "createRefund": "createRefundMock.json",
     "customer": "customerMock.json",
-    "createCustomer": "createCustomerMock.json"
+    "createCustomer": "createCustomerMock.json",
+    "transaction": "transactionMock.json"
   }
 };
 export { sources };
