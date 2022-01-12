@@ -154,6 +154,10 @@ class OpenPixConnection {
 
         return new PixTransaction(this._cache.transactions[customerId].data.transaction);
     }
+
+    startPayment = async (argument) => {
+        
+    }
 }
 
 export { OpenPixConnection }
