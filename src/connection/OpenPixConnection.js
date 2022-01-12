@@ -155,8 +155,18 @@ class OpenPixConnection {
         return new PixTransaction(this._cache.transactions[customerId].data.transaction);
     }
 
-    startPayment = async (argument) => {
-        
+    startPayment = async (paymentBody) => {
+        if(!paymentBody.correlationID)
+            throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+
+        if(!paymentBody.pixKey)
+            throw new Error(genericErrors.requiredFieldRequired + "pixKey");
+
+        if(!paymentBody.pixKeyType)
+            throw new Error(genericErrors.requiredFieldRequired + "pixKeyType");
+
+        if(!paymentBody.value)
+            throw new Error(genericErrors.requiredFieldRequired + "value");
     }
 }
 
