@@ -167,6 +167,8 @@ class OpenPixConnection {
 
         if(!paymentBody.value)
             throw new Error(genericErrors.requiredFieldRequired + "value");
+
+        
     }
 }
 
