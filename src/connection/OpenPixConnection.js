@@ -134,6 +134,10 @@ class OpenPixConnection {
 
         return new PixCustomer(result.data.customer);
     }
+
+    getTransaction = async (transactionId) => {
+
+    }
 }
 
 export { OpenPixConnection }
