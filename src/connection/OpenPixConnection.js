@@ -6,7 +6,8 @@ import {
     createRefundAsync,
     getCustomerAsync,
     createCustomerAsync,
-    getTransactionAsync
+    getTransactionAsync,
+    createPaymentAsync
 } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -168,7 +169,13 @@ class OpenPixConnection {
         if(!paymentBody.value)
             throw new Error(genericErrors.requiredFieldRequired + "value");
 
-        
+        const result = await createPaymentAsync({
+            callType: this._type,
+            callHeaders: this._headers,
+            body: paymentBody
+        });
+
+        return new PixPayment(result.data.payment);
     }
 }
 
