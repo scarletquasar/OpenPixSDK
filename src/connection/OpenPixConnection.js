@@ -14,6 +14,7 @@ import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
 import { PixCustomer } from "../models/pix/PixCustomer.js";
 import { PixTransaction } from "../models/pix/PixTransaction.js";
+import { PixPayment } from "../models/pix/PixPayment.js";
 
 class OpenPixConnection {
     constructor(authorization, type = ConnectionType.production) {
