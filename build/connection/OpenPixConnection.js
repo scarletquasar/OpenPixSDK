@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync, createPaymentAsync } from "../utils/chargeRestCaller.js";
+import { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync, createPaymentAsync, confirmPaymentAsync } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -115,6 +115,15 @@ class OpenPixConnection {
     if (!paymentBody.pixKeyType) throw new Error(genericErrors.requiredFieldRequired + "pixKeyType");
     if (!paymentBody.value) throw new Error(genericErrors.requiredFieldRequired + "value");
     const result = await createPaymentAsync({
+      callType: this._type,
+      callHeaders: this._headers,
+      body: paymentBody
+    });
+    return new PixPayment(result.data.payment);
+  };
+  confirmPayment = async paymentBody => {
+    if (!paymentBody.correlationID) throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+    const result = await confirmPaymentAsync({
       callType: this._type,
       callHeaders: this._headers,
       body: paymentBody
