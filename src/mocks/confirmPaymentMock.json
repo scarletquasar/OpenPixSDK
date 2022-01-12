@@ -1,0 +1,28 @@
+{
+    "payment": {
+      "correlationID": "9134e286-6f71-427a-bf00-241681624586",
+      "destination": {
+        "value": 100,
+        "status": "CONFIRMED",
+        "pixKey": "c4249323-b4ca-43f2-8139-8232aab09b93",
+        "pixKeyType": "RANDOM",
+        "account": {
+          "branch": "1234",
+          "account": "12345",
+          "accountType": "ContaCorrente"
+        },
+        "psp": {
+          "id": "1234",
+          "name": "Banco de Exemplo",
+          "code": "555"
+        },
+        "holder": {
+          "name": "Pessoa Juridica",
+          "taxID": {
+            "taxID": "1234567890",
+            "type": "CNPJ"
+          }
+        }
+      }
+    }
+}

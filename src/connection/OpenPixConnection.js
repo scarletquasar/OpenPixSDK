@@ -7,7 +7,8 @@ import {
     getCustomerAsync,
     createCustomerAsync,
     getTransactionAsync,
-    createPaymentAsync
+    createPaymentAsync,
+    confirmPaymentAsync
 } from "../utils/chargeRestCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -174,6 +175,19 @@ class OpenPixConnection {
             callType: this._type,
             callHeaders: this._headers,
             body: paymentBody
+        });
+
+        return new PixPayment(result.data.payment);
+    }
+
+    confirmPayment = (paymendCorrelationId) => {
+        if(!paymentBody.correlationID)
+            throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+
+        const result = await confirmPaymentAsync({
+            callType: this._type,
+            callHeaders: this._headers,
+            body: {paymendCorrelationId}
         });
 
         return new PixPayment(result.data.payment);
