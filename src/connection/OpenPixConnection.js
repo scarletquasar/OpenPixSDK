@@ -178,6 +178,10 @@ class OpenPixConnection {
 
         return new PixPayment(result.data.payment);
     }
+
+    confirmPayment = (paymendCorrelationId) => {
+        
+    }
 }
 
 export { OpenPixConnection }
