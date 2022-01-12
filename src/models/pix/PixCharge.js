@@ -1,4 +1,5 @@
 import { ConvertibleObject } from "../extensions/ConvertibleObject.js";
+import { PixCustomer } from "./PixCustomer.js";
 
 class PixCharge extends ConvertibleObject {
     status = null;
@@ -18,6 +19,7 @@ class PixCharge extends ConvertibleObject {
     constructor(raw = []) {
         super();
         super.generateFromRaw(raw);
+        this.customer = new PixCustomer(this.customer);
     }
 }
 
