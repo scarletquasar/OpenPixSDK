@@ -1,8 +1,7 @@
-import axios from "axios";
 import { sources } from "../sources/sources.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
-import { PixCharge } from "../models/pix/PixCharge.js";
-import { PixRefund } from "../models/pix/PixRefund.js";
+import genericRequest from "../models/extensions/GenericRequest.js";
+
 
 const getConnectionParams = (request, routeName) => {
     const baseUrl = sources[request.callType]["baseUrl"];
@@ -17,7 +16,7 @@ const getCharge = async (request) => {
     result[request.id] = null;
 
     if(request.id) {
-        result = await axios.get(params.baseUrl + params.route + `/${request.id}`, {
+        result = await genericRequest(params.baseUrl + params.route + `/${request.id}`, 'GET', {
             headers: request.callHeaders
         })
         .catch(e => {
@@ -27,7 +26,7 @@ const getCharge = async (request) => {
         return result;
     }
     
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
         headers: request.callHeaders
     });
     return result;
@@ -38,10 +37,9 @@ const createCharge = async (request) => {
     let result = {};
 
     if(request.callType == "production" || request.callType == "tests") {
-        result = await axios.post(params.baseUrl + params.route, request.body,
-        {
+        result = await genericRequest(params.baseUrl + params.route, 'POST', {
             headers: request.callHeaders
-        })
+        }, request.body)
         .catch(e => {
             console.error(e);
             throw new Error(genericErrors.fetchError);
@@ -50,7 +48,7 @@ const createCharge = async (request) => {
         return result;
     }
 
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
             headers: request.callHeaders
     })
     .catch(e => {
@@ -68,7 +66,7 @@ const getRefund = async (request) => {
     result[request.id] = null;
 
     if(request.id) {
-        result = await axios.get(params.baseUrl + params.route + `/${request.id}`, {
+        result = await genericRequest(params.baseUrl + params.route + `/${request.id}`, 'GET', {
             headers: request.callHeaders
         })
         .catch(e => {
@@ -78,7 +76,7 @@ const getRefund = async (request) => {
         return result;
     }
     
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
         headers: request.callHeaders
     });
     return result;
@@ -89,10 +87,10 @@ const createRefund = async (request) => {
     let result = {};
 
     if(request.callType == "production" || request.callType == "tests") {
-        result = await axios.post(params.baseUrl + params.route, request.body,
+        result = await genericRequest(params.baseUrl + params.route, 'POST', 
         {
             headers: request.callHeaders
-        })
+            }, request.body)
         .catch(e => {
             console.error(e);
             throw new Error(genericErrors.fetchError);
@@ -101,7 +99,7 @@ const createRefund = async (request) => {
         return result;
     }
 
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
             headers: request.callHeaders
     })
     .catch(e => {
@@ -119,7 +117,7 @@ const getCustomer = async (request) => {
     result[request.id] = null;
 
     if(request.id) {
-        result = await axios.get(params.baseUrl + params.route + `/${request.id}`, {
+        result = await genericRequest(params.baseUrl + params.route + `/${request.id}`, 'GET', {
             headers: request.callHeaders
         })
         .catch(e => {
@@ -129,7 +127,7 @@ const getCustomer = async (request) => {
         return result;
     }
     
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
         headers: request.callHeaders
     });
     return result;
@@ -140,10 +138,10 @@ const createCustomer = async (request) => {
     let result = {};
 
     if(request.callType == "production" || request.callType == "tests") {
-        result = await axios.post(params.baseUrl + params.route, request.body,
+        result = await genericRequest(params.baseUrl + params.route, 'POST', 
         {
             headers: request.callHeaders
-        })
+            }, request.body)
         .catch(e => {
             console.error(e);
             throw new Error(genericErrors.fetchError);
@@ -152,7 +150,7 @@ const createCustomer = async (request) => {
         return result;
     }
 
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
             headers: request.callHeaders
     })
     .catch(e => {
@@ -170,7 +168,7 @@ const getTransaction = async (request) => {
     result[request.id] = null;
 
     if(request.id) {
-        result = await axios.get(params.baseUrl + params.route + `/${request.id}`, {
+        result = await genericRequest(params.baseUrl + params.route + `/${request.id}`, 'GET', {
             headers: request.callHeaders
         })
         .catch(e => {
@@ -180,7 +178,7 @@ const getTransaction = async (request) => {
         return result;
     }
     
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
         headers: request.callHeaders
     });
     return result;
@@ -191,10 +189,10 @@ const createPayment = async (request) => {
     let result = {};
 
     if(request.callType == "production" || request.callType == "tests") {
-        result = await axios.post(params.baseUrl + params.route, request.body,
+        result = await genericRequest(params.baseUrl + params.route, 'POST',
         {
             headers: request.callHeaders
-        })
+            }, request.body)
         .catch(e => {
             console.error(e);
             throw new Error(genericErrors.fetchError);
@@ -203,7 +201,7 @@ const createPayment = async (request) => {
         return result;
     }
 
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
             headers: request.callHeaders
     })
     .catch(e => {
@@ -219,10 +217,10 @@ const confirmPayment = async (request) => {
     let result = {};
 
     if(request.callType == "production" || request.callType == "tests") {
-        result = await axios.post(params.baseUrl + params.route, request.body,
+        result = await genericRequest(params.baseUrl + params.route, 
         {
             headers: request.callHeaders
-        })
+            }, request.body)
         .catch(e => {
             console.error(e);
             throw new Error(genericErrors.fetchError);
@@ -231,7 +229,7 @@ const confirmPayment = async (request) => {
         return result;
     }
 
-    result = await axios.get(params.baseUrl + params.route, {
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
             headers: request.callHeaders
     })
     .catch(e => {
