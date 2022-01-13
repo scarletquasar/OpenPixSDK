@@ -13,7 +13,7 @@ const getConnectionParams = (request, routeName) => {
   };
 };
 
-const getChargeAsync = async request => {
+const getCharge = async request => {
   const params = getConnectionParams(request, "charge");
   let result = {};
   result[request.id] = null;
@@ -34,7 +34,7 @@ const getChargeAsync = async request => {
   return result;
 };
 
-const createChargeAsync = async request => {
+const createCharge = async request => {
   const params = getConnectionParams(request, "createCharge");
   let result = {};
 
@@ -57,7 +57,7 @@ const createChargeAsync = async request => {
   return result;
 };
 
-const getRefundAsync = async request => {
+const getRefund = async request => {
   const params = getConnectionParams(request, "refund");
   let result = {};
   result[request.id] = null;
@@ -78,7 +78,7 @@ const getRefundAsync = async request => {
   return result;
 };
 
-const createRefundAsync = async request => {
+const createRefund = async request => {
   const params = getConnectionParams(request, "createRefund");
   let result = {};
 
@@ -101,7 +101,7 @@ const createRefundAsync = async request => {
   return result;
 };
 
-const getCustomerAsync = async request => {
+const getCustomer = async request => {
   const params = getConnectionParams(request, "customer");
   let result = {};
   result[request.id] = null;
@@ -122,7 +122,7 @@ const getCustomerAsync = async request => {
   return result;
 };
 
-const createCustomerAsync = async request => {
+const createCustomer = async request => {
   const params = getConnectionParams(request, "createCustomer");
   let result = {};
 
@@ -145,7 +145,7 @@ const createCustomerAsync = async request => {
   return result;
 };
 
-const getTransactionAsync = async request => {
+const getTransaction = async request => {
   const params = getConnectionParams(request, "transaction");
   let result = {};
   result[request.id] = null;
@@ -166,7 +166,7 @@ const getTransactionAsync = async request => {
   return result;
 };
 
-const createPaymentAsync = async request => {
+const createPayment = async request => {
   const params = getConnectionParams(request, "payment");
   let result = {};
 
@@ -189,7 +189,7 @@ const createPaymentAsync = async request => {
   return result;
 };
 
-const confirmPaymentAsync = async request => {
+const confirmPayment = async request => {
   const params = getConnectionParams(request, "confirmPayment");
   let result = {};
 
@@ -212,4 +212,4 @@ const confirmPaymentAsync = async request => {
   return result;
 };
 
-export { getChargeAsync, createChargeAsync, getRefundAsync, createRefundAsync, getCustomerAsync, createCustomerAsync, getTransactionAsync, createPaymentAsync, confirmPaymentAsync };
+export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment };
