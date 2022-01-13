@@ -9,7 +9,7 @@ import {
     getTransactionAsync,
     createPaymentAsync,
     confirmPaymentAsync
-} from "../utils/chargeRestCaller.js";
+} from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
