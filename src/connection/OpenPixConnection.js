@@ -192,6 +192,10 @@ class OpenPixConnection {
 
         return new PixPayment(result.data.payment);
     }
+
+    getPixQrCode = async () => {
+        
+    }
 }
 
 export { OpenPixConnection }
