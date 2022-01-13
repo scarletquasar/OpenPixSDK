@@ -180,14 +180,14 @@ class OpenPixConnection {
         return new PixPayment(result.data.payment);
     }
 
-    confirmPayment = async (paymendCorrelationId) => {
+    confirmPayment = async (paymentBody) => {
         if(!paymentBody.correlationID)
             throw new Error(genericErrors.requiredFieldRequired + "correlationID");
 
         const result = await confirmPaymentAsync({
             callType: this._type,
             callHeaders: this._headers,
-            body: {paymendCorrelationId}
+            body: paymentBody
         });
 
         return new PixPayment(result.data.payment);
