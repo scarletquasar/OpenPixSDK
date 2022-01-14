@@ -1,14 +1,14 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js"
 import { 
-    getChargeAsync, 
-    createChargeAsync, 
-    getRefundAsync,
-    createRefundAsync,
-    getCustomerAsync,
-    createCustomerAsync,
-    getTransactionAsync,
-    createPaymentAsync,
-    confirmPaymentAsync
+    getCharge,
+    createCharge,
+    getRefund,
+    createRefund,
+    getCustomer,
+    createCustomer,
+    getTransaction,
+    createPayment,
+    confirmPayment
 } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -44,7 +44,7 @@ class OpenPixConnection {
 
     getCharge = async (chargeId) => {
         if(!this._cache.charges[chargeId]) {
-            const result = await getChargeAsync({
+            const result = await getCharge({
                 id: chargeId,
                 callType: this._type,
                 callHeaders: this._headers
@@ -66,7 +66,7 @@ class OpenPixConnection {
         if(!chargeBody.value)
             throw new Error(genericErrors.requiredFieldRequired + "value");
 
-        const result = await createChargeAsync({
+        const result = await createCharge({
             callType: this._type,
             callHeaders: this._headers,
             body: chargeBody
@@ -77,7 +77,7 @@ class OpenPixConnection {
 
     getRefund = async (refundId) => {
         if(!this._cache.refunds[refundId]) {
-            const result = await getRefundAsync({
+            const result = await getRefund({
                 id: refundId,
                 callType: this._type,
                 callHeaders: this._headers
@@ -102,7 +102,7 @@ class OpenPixConnection {
         if(!refundBody.correlationID)
             throw new Error(genericErrors.requiredFieldRequired + "correlationID");
 
-        const result = await createRefundAsync({
+        const result = await createRefund({
             callType: this._type,
             callHeaders: this._headers,
             body: refundBody
@@ -113,7 +113,7 @@ class OpenPixConnection {
 
     getCustomer = async (customerId) => {
         if(!this._cache.customers[customerId]) {
-            const result = await getCustomerAsync({
+            const result = await getCustomer({
                 id: customerId,
                 callType: this._type,
                 callHeaders: this._headers
@@ -132,7 +132,7 @@ class OpenPixConnection {
         if(!customerBody.name)
             throw new Error(genericErrors.requiredFieldRequired + "name");
 
-        const result = await createCustomerAsync({
+        const result = await createCustomer({
             callType: this._type,
             callHeaders: this._headers,
             body: customerBody
@@ -143,7 +143,7 @@ class OpenPixConnection {
 
     getTransaction = async (transactionId) => {
         if(!this._cache.transactions[transactionId]) {
-            const result = await getTransactionAsync({
+            const result = await getTransaction({
                 id: transactionId,
                 callType: this._type,
                 callHeaders: this._headers
@@ -171,7 +171,7 @@ class OpenPixConnection {
         if(!paymentBody.value)
             throw new Error(genericErrors.requiredFieldRequired + "value");
 
-        const result = await createPaymentAsync({
+        const result = await createPayment({
             callType: this._type,
             callHeaders: this._headers,
             body: paymentBody
@@ -184,7 +184,7 @@ class OpenPixConnection {
         if(!paymentBody.correlationID)
             throw new Error(genericErrors.requiredFieldRequired + "correlationID");
 
-        const result = await confirmPaymentAsync({
+        const result = await confirmPayment({
             callType: this._type,
             callHeaders: this._headers,
             body: paymentBody
