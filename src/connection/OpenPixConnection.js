@@ -72,7 +72,7 @@ class OpenPixConnection {
             body: chargeBody
         });
 
-        return new PixCharge(result.data.charge);
+        return new PixCharge(result.data);
     }
 
     getRefund = async (refundId) => {
@@ -102,13 +102,14 @@ class OpenPixConnection {
         if(!refundBody.correlationID)
             throw new Error(genericErrors.requiredFieldRequired + "correlationID");
 
+        
         const result = await createRefund({
             callType: this._type,
             callHeaders: this._headers,
             body: refundBody
         });
 
-        return new PixRefund(result.data.refund);
+        return new PixRefund(result.data);
     }
 
     getCustomer = async (customerId) => {

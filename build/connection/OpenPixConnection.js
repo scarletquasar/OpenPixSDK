@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment } from "../utils/chargeRestCaller.js";
+import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -48,7 +48,7 @@ class OpenPixConnection {
       callHeaders: this._headers,
       body: chargeBody
     });
-    return new PixCharge(result.data.charge);
+    return new PixCharge(result.data);
   };
   getRefund = async refundId => {
     if (!this._cache.refunds[refundId]) {
@@ -72,7 +72,7 @@ class OpenPixConnection {
       callHeaders: this._headers,
       body: refundBody
     });
-    return new PixRefund(result.data.refund);
+    return new PixRefund(result.data);
   };
   getCustomer = async customerId => {
     if (!this._cache.customers[customerId]) {
@@ -130,6 +130,7 @@ class OpenPixConnection {
     });
     return new PixPayment(result.data.payment);
   };
+  getPixQrCode = async () => {};
 }
 
 export { OpenPixConnection };
