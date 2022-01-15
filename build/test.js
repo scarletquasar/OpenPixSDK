@@ -4,7 +4,7 @@ var a = new OpenPixConnection("", ConnectionType.mockTests);
 
 async function test() {
   var b = await a.confirmPayment({
-    correlationID: 12342
+    correlationID: 2
   });
   console.log(b);
 }

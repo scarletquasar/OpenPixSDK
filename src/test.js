@@ -3,7 +3,7 @@ import { ConnectionType } from "./models/enums/ConnectionType.js";
 
 var a = new OpenPixConnection("", ConnectionType.mockTests);
 async function test() {
-    var b = await a.confirmPayment({correlationID: 12342});
+    var b = await a.confirmPayment({correlationID: 2});
     console.log(b);
 }
 
