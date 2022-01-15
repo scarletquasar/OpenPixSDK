@@ -1,0 +1,29 @@
+{
+    "pageInfo": {
+      "skip": 0,
+      "limit": 100,
+      "totalCount": 2,
+      "hasPreviousPage": false,
+      "hasNextPage": true
+    },
+    "webhooks": [
+      {
+        "id": "V2ViaG9vazo2MDNlYmUxZWRlYjkzNWU4NmQyMmNmMTg=",
+        "name": "webhookName",
+        "url": "https://mycompany.com.br/webhook",
+        "authorization": "openpix",
+        "isActive": true,
+        "createdAt": "2021-03-02T22:29:10.720Z",
+        "updatedAt": "2021-03-02T22:29:10.720Z"
+      },
+      {
+        "id": "V2ViaG9vazo2MDNlYmUxZWRlYjkzNWU4NmQyMmNmOTk=",
+        "name": "webhookName",
+        "url": "https://mycompany.com.br/webhook",
+        "authorization": "openpix",
+        "isActive": true,
+        "createdAt": "2021-03-02T22:29:10.720Z",
+        "updatedAt": "2021-03-02T22:29:10.720Z"
+      }
+    ]
+}
