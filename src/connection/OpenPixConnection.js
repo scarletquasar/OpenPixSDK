@@ -8,7 +8,8 @@ import {
     createCustomer,
     getTransaction,
     createPayment,
-    confirmPayment
+    confirmPayment,
+    getPixQrCode
 } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -16,6 +17,7 @@ import { PixCharge } from "../models/pix/PixCharge.js";
 import { PixCustomer } from "../models/pix/PixCustomer.js";
 import { PixTransaction } from "../models/pix/PixTransaction.js";
 import { PixPayment } from "../models/pix/PixPayment.js";
+import { PixQrCode } from "../models/pix/PixQrCode.js"; 
 
 class OpenPixConnection {
     constructor(authorization, type = ConnectionType.production) {
@@ -27,7 +29,8 @@ class OpenPixConnection {
         charges: {},
         refunds: {},
         customers: {},
-        transactions: {}
+        transactions: {},
+        pixQrCodes: {}
     };
 
     setupConnection = (newAuth, newType) => {
@@ -194,8 +197,22 @@ class OpenPixConnection {
         return new PixPayment(result.data.payment);
     }
 
-    getPixQrCode = async () => {
-        
+    getPixQrCode = async (pixQrCodeId) => {
+        if(!this._cache.pixQrCodes[pixQrCodeId]) {
+            const result = await getPixQrCode({
+                id: pixQrCodeId,
+                callType: this._type,
+                callHeaders: this._headers
+            });
+    
+            result.data instanceof Object && pixQrCodeId ?
+            this._cache.pixQrCodes[pixQrCodeId] = result.data : {};
+
+            console.log(result.data);
+            return new PixQrCode(result.data.pixQrCode);
+        }
+
+        return new PixQrCode(this._cache.pixQrCodes[pixQrCodeId].data.pixQrCode);
     }
 }
 

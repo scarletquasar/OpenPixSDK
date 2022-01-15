@@ -9,7 +9,8 @@ const sources = {
     "createCustomer": "/api/openpix/v1/customer/",
     "transaction": "/api/openpix/v1/transaction/",
     "payment": "/api/openpix/v1/pay/",
-    "confirmPayment": "/api/openpix/v1/pay/confirm/"
+    "confirmPayment": "/api/openpix/v1/pay/confirm/",
+    "pixQrCode": "/api/openpix/v1/pixQrCode-static/"
   },
   "tests": {
     "baseUrl": "https://jsonplaceholder.typicode.com",
@@ -21,7 +22,8 @@ const sources = {
     "createCustomer": "",
     "transaction": "",
     "payment": "",
-    "confirmPayment": ""
+    "confirmPayment": "",
+    "pixQrCode": ""
   },
   "mockTests": {
     "baseUrl": "https://raw.githubusercontent.com/EternalQuasar0206/OpenPixSDK/main/src/mocks/",
@@ -33,7 +35,8 @@ const sources = {
     "createCustomer": "createCustomerMock.json",
     "transaction": "transactionMock.json",
     "payment": "paymentMock.json",
-    "confirmPayment": "confirmPaymentMock.json"
+    "confirmPayment": "confirmPaymentMock.json",
+    "pixQrCode": "pixQrCodeMock.json"
   }
 };
 export { sources };
