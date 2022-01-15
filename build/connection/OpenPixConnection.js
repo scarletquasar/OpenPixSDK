@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic } from "../utils/restCaller.js";
+import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -7,6 +7,7 @@ import { PixCustomer } from "../models/pix/PixCustomer.js";
 import { PixTransaction } from "../models/pix/PixTransaction.js";
 import { PixPayment } from "../models/pix/PixPayment.js";
 import { PixQrCode } from "../models/pix/PixQrCode.js";
+import { PixWebhook } from "../models/pix/PixWebhook.js";
 
 class OpenPixConnection {
   constructor(authorization, type = ConnectionType.production) {
@@ -146,18 +147,27 @@ class OpenPixConnection {
 
     return new PixQrCode(this._cache.pixQrCodes[pixQrCodeId].data.pixQrCode);
   };
-  createPixQrCodeStatic = async paymentBody => {
-    if (!paymentBody.name) throw new Error(genericErrors.requiredFieldRequired + "name");
-    if (!paymentBody.correlationID) throw new Error(genericErrors.requiredFieldRequired + "correlationID");
-    if (!paymentBody.value) throw new Error(genericErrors.requiredFieldRequired + "value");
-    if (!paymentBody.comment) throw new Error(genericErrors.requiredFieldRequired + "comment");
-    if (!paymentBody.identifier) throw new Error(genericErrors.requiredFieldRequired + "identifier");
+  createPixQrCodeStatic = async pixQrCodeBody => {
+    if (!pixQrCodeBody.name) throw new Error(genericErrors.requiredFieldRequired + "name");
+    if (!pixQrCodeBody.correlationID) throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+    if (!pixQrCodeBody.value) throw new Error(genericErrors.requiredFieldRequired + "value");
+    if (!pixQrCodeBody.comment) throw new Error(genericErrors.requiredFieldRequired + "comment");
+    if (!pixQrCodeBody.identifier) throw new Error(genericErrors.requiredFieldRequired + "identifier");
     const result = await createPixQrCodeStatic({
       callType: this._type,
       callHeaders: this._headers,
-      body: paymentBody
+      body: pixQrCodeBody
     });
     return new PixQrCode(result.data.pixQrCode);
+  };
+  createWebhook = async webhookBody => {
+    if (!webhookBody.url) throw new Error(genericErrors.requiredFieldRequired + "url");
+    const result = await createWebhook({
+      callType: this._type,
+      callHeaders: this._headers,
+      body: webhookBody
+    });
+    return new PixWebhook(result.data.webhook);
   };
 }
 
