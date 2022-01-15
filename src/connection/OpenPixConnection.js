@@ -9,7 +9,8 @@ import {
     getTransaction,
     createPayment,
     confirmPayment,
-    getPixQrCode
+    getPixQrCode,
+    createPixQrCodeStatic
 } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -213,6 +214,31 @@ class OpenPixConnection {
         }
 
         return new PixQrCode(this._cache.pixQrCodes[pixQrCodeId].data.pixQrCode);
+    }
+
+    createPixQrCodeStatic = async (paymentBody) => {
+        if(!paymentBody.name)
+            throw new Error(genericErrors.requiredFieldRequired + "name");
+
+        if(!paymentBody.correlationID)
+            throw new Error(genericErrors.requiredFieldRequired + "correlationID");
+
+        if(!paymentBody.value)
+            throw new Error(genericErrors.requiredFieldRequired + "value");
+
+        if(!paymentBody.comment)
+            throw new Error(genericErrors.requiredFieldRequired + "comment");
+
+        if(!paymentBody.identifier)
+            throw new Error(genericErrors.requiredFieldRequired + "identifier");
+
+        const result = await createPixQrCodeStatic({
+            callType: this._type,
+            callHeaders: this._headers,
+            body: paymentBody
+        });
+
+        return new PixQrCode(result.data.pixQrCode);
     }
 }
 
