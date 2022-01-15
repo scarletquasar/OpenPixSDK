@@ -12,7 +12,8 @@ import {
     getPixQrCode,
     createPixQrCodeStatic,
     createWebhook,
-    getWebhooks
+    getWebhooks,
+    deleteWebhook
 } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -213,7 +214,6 @@ class OpenPixConnection {
             result.data instanceof Object && pixQrCodeId ?
             this._cache.pixQrCodes[pixQrCodeId] = result.data : {};
 
-            console.log(result.data);
             return new PixQrCode(result.data.pixQrCode);
         }
 
@@ -273,6 +273,19 @@ class OpenPixConnection {
         }
 
         return this._cache.transactions[customerId].data.webhooks.map(w => new PixWebhook(w));
+    }
+
+    deleteWebhook = async (requestBody) => {
+        if(!requestBody.id)
+            throw new Error(genericErrors.requiredFieldRequired + "id");
+
+        const result = await deleteWebhook({
+            callType: this._type,
+            callHeaders: this._headers,
+            body: requestBody
+        });
+
+        return result.data;
     }
 }
 

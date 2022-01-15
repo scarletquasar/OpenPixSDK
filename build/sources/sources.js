@@ -12,7 +12,9 @@ const sources = {
     "confirmPayment": "/api/openpix/v1/pay/confirm/",
     "pixQrCode": "/api/openpix/v1/pixQrCode-static/",
     "createPixQrCodeStatic": "/api/openpix/v1/qrcode-static/",
-    "createWebhook": "/api/openpix/v1/webhook/"
+    "createWebhook": "/api/openpix/v1/webhook/",
+    "webhooks": "",
+    "deleteWebhook": ""
   },
   "tests": {
     "baseUrl": "https://jsonplaceholder.typicode.com",
@@ -27,7 +29,9 @@ const sources = {
     "confirmPayment": "",
     "pixQrCode": "",
     "createPixQrCodeStatic": "",
-    "createWebhook": ""
+    "createWebhook": "",
+    "webhooks": "",
+    "deleteWebhook": ""
   },
   "mockTests": {
     "baseUrl": "https://raw.githubusercontent.com/EternalQuasar0206/OpenPixSDK/main/src/mocks/",
@@ -43,7 +47,8 @@ const sources = {
     "pixQrCode": "pixQrCodeMock.json",
     "createPixQrCodeStatic": "createPixQrCodeStaticMock.json",
     "createWebhook": "createWebhookMock.json",
-    "webhooks": "webhooksMock.json"
+    "webhooks": "webhooksMock.json",
+    "deleteWebhook": "deleteWebhookMock.json"
   }
 };
 export { sources };
