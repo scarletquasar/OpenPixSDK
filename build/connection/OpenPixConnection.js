@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook } from "../utils/restCaller.js";
+import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook, getWebhooks } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -20,7 +20,8 @@ class OpenPixConnection {
     refunds: {},
     customers: {},
     transactions: {},
-    pixQrCodes: {}
+    pixQrCodes: {},
+    webhooks: {}
   };
   setupConnection = (newAuth, newType) => {
     typeof newAuth === 'string' ? this._authorization = newAuth : {};
@@ -168,6 +169,19 @@ class OpenPixConnection {
       body: webhookBody
     });
     return new PixWebhook(result.data.webhook);
+  };
+  getWebhooks = async webhookUrl => {
+    if (!this._cache.webhooks[webhookUrl]) {
+      const result = await getWebhooks({
+        id: webhookUrl,
+        callType: this._type,
+        callHeaders: this._headers
+      });
+      result.data instanceof Object && webhookUrl ? this._cache.webhooks[webhookUrl] = result.data : {};
+      return result.data.webhooks.map(w => new PixWebhook(w));
+    }
+
+    return this._cache.transactions[customerId].data.webhooks.map(w => new PixWebhook(w));
   };
 }
 
