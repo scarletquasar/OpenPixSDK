@@ -277,4 +277,25 @@ const createWebhook = async request => {
   return result;
 };
 
-export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook };
+const getWebhooks = async request => {
+  const params = getConnectionParams(request, "webhooks");
+  let result = {};
+  result[request.id] = null;
+
+  if (request.id) {
+    result = await genericRequest(params.baseUrl + params.route + `/${request.id}`, 'GET', {
+      headers: request.callHeaders
+    }).catch(e => {
+      console.error(e);
+      throw new Error(genericErrors.fetchError);
+    });
+    return result;
+  }
+
+  result = await genericRequest(params.baseUrl + params.route, 'GET', {
+    headers: request.callHeaders
+  });
+  return result;
+};
+
+export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook, getWebhooks };

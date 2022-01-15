@@ -42,7 +42,8 @@ const sources = {
     "confirmPayment": "confirmPaymentMock.json",
     "pixQrCode": "pixQrCodeMock.json",
     "createPixQrCodeStatic": "createPixQrCodeStaticMock.json",
-    "createWebhook": "createWebhookMock.json"
+    "createWebhook": "createWebhookMock.json",
+    "webhooks": "webhooksMock.json"
   }
 };
 export { sources };
