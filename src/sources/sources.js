@@ -13,8 +13,8 @@ const sources = {
         "pixQrCode": "/api/openpix/v1/pixQrCode-static/",
         "createPixQrCodeStatic": "/api/openpix/v1/qrcode-static/",
         "createWebhook": "/api/openpix/v1/webhook/",
-        "webhooks": "",
-        "deleteWebhook": "",
+        "webhooks": "/api/openpix/v1/webhook/",
+        "deleteWebhook": "/api/openpix/v1/webhook/",
         "chargeImageQrCode": "/openpix/charge/brcode/image/{:id}.png?size={:size}"
     },
     "tests": {
