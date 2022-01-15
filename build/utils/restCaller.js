@@ -231,4 +231,27 @@ const getPixQrCode = async request => {
   return result;
 };
 
-export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode };
+const createPixQrCodeStatic = async request => {
+  const params = getConnectionParams(request, "createPixQrCodeStatic");
+  let result = {};
+
+  if (request.callType == "production" || request.callType == "tests") {
+    result = await genericRequest(params.baseUrl + params.route, {
+      headers: request.callHeaders
+    }, request.body).catch(e => {
+      console.error(e);
+      throw new Error(genericErrors.fetchError);
+    });
+    return result;
+  }
+
+  result = await genericRequest(params.baseUrl + params.route, 'GET', {
+    headers: request.callHeaders
+  }).catch(e => {
+    console.error(e);
+    throw new Error(genericErrors.fetchError);
+  });
+  return result;
+};
+
+export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic };
