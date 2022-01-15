@@ -321,4 +321,25 @@ const deleteWebhook = async request => {
   return result;
 };
 
-export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook, getWebhooks, deleteWebhook };
+const getChargeImageQrCode = async (request, query) => {
+  const params = getConnectionParams(request, "chargeImageQrCode");
+  let result = {};
+  result[request.id] = null;
+
+  if (request.id) {
+    result = await genericRequest(params.baseUrl + params.route + query, 'GET', {
+      headers: request.callHeaders
+    }).catch(e => {
+      console.error(e);
+      throw new Error(genericErrors.fetchError);
+    });
+    return result;
+  }
+
+  result = await genericRequest(params.baseUrl + params.route, 'GET', {
+    headers: request.callHeaders
+  });
+  return result;
+};
+
+export { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook, getWebhooks, deleteWebhook, getChargeImageQrCode };

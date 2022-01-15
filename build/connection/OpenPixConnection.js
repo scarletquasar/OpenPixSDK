@@ -1,5 +1,5 @@
 import { ConnectionType } from "../models/enums/ConnectionType.js";
-import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook, getWebhooks, deleteWebhook } from "../utils/restCaller.js";
+import { getCharge, createCharge, getRefund, createRefund, getCustomer, createCustomer, getTransaction, createPayment, confirmPayment, getPixQrCode, createPixQrCodeStatic, createWebhook, getWebhooks, deleteWebhook, getChargeImageQrCode } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
 import { PixCharge } from "../models/pix/PixCharge.js";
@@ -189,6 +189,16 @@ class OpenPixConnection {
       callHeaders: this._headers,
       body: requestBody
     });
+    return result.data;
+  };
+  getChargeImageQrCode = async (id, size) => {
+    let query = `?${id}.png&size=${size}`;
+    if (!id) throw new Error(genericErrors.requiredFieldRequired + "id");
+    if (!size) throw new Error(genericErrors.requiredFieldRequired + "size");
+    const result = await getChargeImageQrCode({
+      callType: this._type,
+      callHeaders: this._headers
+    }, query);
     return result.data;
   };
 }

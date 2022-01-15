@@ -370,6 +370,29 @@ const deleteWebhook = async (request) => {
     return result;
 }
 
+const getChargeImageQrCode = async (request, query) => {
+    const params = getConnectionParams(request, "chargeImageQrCode");
+    let result = {};
+
+    result[request.id] = null;
+
+    if(request.id) {
+        result = await genericRequest(params.baseUrl + params.route + query, 'GET', {
+            headers: request.callHeaders
+        })
+        .catch(e => {
+            console.error(e);
+            throw new Error(genericErrors.fetchError);
+        })
+        return result;
+    }
+    
+    result = await genericRequest(params.baseUrl + params.route, 'GET', {
+        headers: request.callHeaders
+    });
+    return result;
+}
+
 export { 
     getCharge,
     createCharge,
@@ -384,5 +407,6 @@ export {
     createPixQrCodeStatic,
     createWebhook,
     getWebhooks,
-    deleteWebhook
+    deleteWebhook,
+    getChargeImageQrCode
 }

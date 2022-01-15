@@ -13,7 +13,8 @@ import {
     createPixQrCodeStatic,
     createWebhook,
     getWebhooks,
-    deleteWebhook
+    deleteWebhook,
+    getChargeImageQrCode
 } from "../utils/restCaller.js";
 import { genericErrors } from "../models/errors/genericErrors.js";
 import { PixRefund } from "../models/pix/PixRefund.js";
@@ -284,6 +285,23 @@ class OpenPixConnection {
             callHeaders: this._headers,
             body: requestBody
         });
+
+        return result.data;
+    }
+
+    getChargeImageQrCode = async (id, size) => {
+        let query = `?${id}.png&size=${size}`;
+
+        if(!id)
+            throw new Error(genericErrors.requiredFieldRequired + "id");
+
+        if(!size)
+            throw new Error(genericErrors.requiredFieldRequired + "size");
+
+        const result = await getChargeImageQrCode({
+            callType: this._type,
+            callHeaders: this._headers
+        }, query);
 
         return result.data;
     }
